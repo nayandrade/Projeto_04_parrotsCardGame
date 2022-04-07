@@ -36,9 +36,10 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    max-width: 1057px;
 }
 
-.card-front {
+.card {
     background-color: #A7E9AF;
     border: 1px solid #99CEA8;
     width: 117px;
@@ -49,9 +50,11 @@ header {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0,0,0,.3);
 }
 
-.card-front img {
+.card-front,
+.card-back {
     display: flex;
     align-items: center;
     justify-content: center;

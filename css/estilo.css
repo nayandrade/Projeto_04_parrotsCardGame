@@ -62,6 +62,14 @@ header {
     height: 100px;
 }
 
+.card-back:hover {
+    
+}
+
+.escondido {
+    display: none;
+}
+
 
 
 @media (max-width: 810px) {

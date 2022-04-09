@@ -63,24 +63,16 @@ header {
     transition-duration: 500ms;     
 }
 
+
 .card.flip {
     transform: rotateY(180deg);
-    transition-duration: 200ms; 
+    transition-duration: 200ms;
+    animation: none; 
 }
 
 .card-front {    
     transition-duration: 500ms;
 }
-
-.card:hover {
-    
-}
-
-.selecionada {
-
-}
-
-
 
 .escondido {
     display: none;
@@ -91,11 +83,15 @@ header {
 @media (max-width: 810px) {
 
     header {
-        max-width: 400px;
+        max-width: 312px;
     }
 
     .container {
         flex-direction: column;
+    }
+
+    h1 {
+        font-size: 36px;
     }
     
 }

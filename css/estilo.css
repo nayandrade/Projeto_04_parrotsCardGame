@@ -60,11 +60,27 @@ header {
     justify-content: center;
     width: 100px;
     height: 100px;
+    transition-duration: 500ms;     
 }
 
-.card-back:hover {
+.card.flip {
+    transform: rotateY(180deg);
+    transition-duration: 200ms; 
+}
+
+.card-front {    
+    transition-duration: 500ms;
+}
+
+.card:hover {
     
 }
+
+.selecionada {
+
+}
+
+
 
 .escondido {
     display: none;

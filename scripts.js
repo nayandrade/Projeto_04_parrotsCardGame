@@ -17,9 +17,12 @@ let rodadas = 0
 let click = 0
 let card = prompt("Com quantas cartas vossa senhoria deseja jogar? Pares, de 4 a 14");
 let tempo = false;
+let tempoMinutos = 0
+let tempoSegundos = 0
+let intervalo;
 
 while (card % 2 !== 0 || card < 4 || card > 14) {
-    card = prompt("Com quantas cartas vossa senhoria deseja jogar? Pares, de 4 a 14")    
+    card = prompt("Com quantas cartas vossa senhoria deseja jogar? Pares, de 4 a 14")
 }
 
 function shuffle(array) {
@@ -58,34 +61,34 @@ function adicionarCarta() {
         <img class="card-front face" onclick="escolherCarta(this)" src="${img0}" alt="">
         <img class="card-back face escondido" src="${cartasDistribuir[i]}" alt="">
     </div>`
+
     }
+    cronometro()
 }
 
 function escolherCarta(elemento) {
 
     if (tempo === false) {
         elemento.parentNode.classList.add("flip");
-    elemento.classList.add("escondido");
-    setTimeout(() => {
-        elemento.nextElementSibling.classList.remove("escondido");
-    }, 100);
+        elemento.classList.add("escondido");
+        setTimeout(() => {
+            elemento.nextElementSibling.classList.remove("escondido");
+        }, 100);
 
-    if (hasFlippedCard === false) {
-        hasFlippedCard = true;
-        primeiraCarta = elemento
-        console.log(primeiraCarta)
-    } else {
-        segundaCarta = elemento;
-        hasFlippedCard = false;
-        console.log(segundaCarta)
-        checar();
+        if (hasFlippedCard === false) {
+            hasFlippedCard = true;
+            primeiraCarta = elemento
+            console.log(primeiraCarta)
+        } else {
+            segundaCarta = elemento;
+            hasFlippedCard = false;
+            console.log(segundaCarta)
+            checar();
+        }
+
+        click += 1
+        console.log(click)
     }
-
-    click += 1   
-    console.log(click)
-
-    }
-    
 }
 
 function checar() {
@@ -95,13 +98,13 @@ function checar() {
     console.log(segundona)
 
     if (primeirona == segundona) {
-        
+
         primeirona = ""
         segundona = ""
         disableCards();
         resetar()
     } else {
-        
+
         unflipCards();
     }
 }
@@ -109,7 +112,7 @@ function checar() {
 function disableCards() {
     primeiraCarta = ""
     segundaCarta = ""
-    acerto += 1    
+    acerto += 1
     console.log(acerto)
 }
 
@@ -125,20 +128,61 @@ function unflipCards() {
         segundaCarta.nextElementSibling.classList.add("escondido");
         tempo = false;
         console.log(tempo)
-        
+
     }, 1000);
-    console.log(tempo)    
+    console.log(tempo)
 }
 
 function resetar() {
     if (acerto === card / 2) {
         setTimeout(() => {
-            alert(`Você ganhou em ${click} jogadas!`)
-        }, 110);
+            alert(`Você ganhou em ${click} jogadas! e ${tempoMinutos}:${tempoSegundos}s`)
+        }, 100);
+        setTimeout(() => {
+            card = prompt("Você gostaria de jogar novamente? Responda 'Sim'");
+            if (card == "Sim") {
+                while (card % 2 !== 0 || card < 4 || card > 14) {
+                    card = prompt("Com quantas cartas vossa senhoria deseja jogar? Pares, de 4 a 14")
+                }
+                acerto = 0
+                rodadas = 0
+                click = 0
+                imagensEmbaralhadas = []
+                cartasDistribuir = []
+                document.querySelector(".container").innerHTML = ""
+                distribuirCartas()
+            }
+        }, 300);
+
+        setTimeout(() => {
+            clearInterval(intervalo)
+            tempoMinutos = 0
+            tempoSegundos = 0
+            let minutos = document.querySelector('.minutos')
+            let segundos = document.querySelector('.segundos')
+
+            minutos.innerHTML = `${tempoMinutos}`
+            segundos.innerHTML = `${tempoSegundos}`
+
+        }, 200);
     }
 }
 
+function cronometro() {
+    intervalo = setInterval(function () {
+        if (tempoSegundos === 60) {
+            tempoMinutos++
+            tempoSegundos = 0
+        }
+        let minutos = document.querySelector('.minutos')
+        let segundos = document.querySelector('.segundos')
 
+        minutos.innerHTML = `${tempoMinutos}`
+        segundos.innerHTML = `${tempoSegundos}`
 
+        tempoSegundos++
+        console.log(tempoSegundos)
+    }, 1000)
+}
 
 
